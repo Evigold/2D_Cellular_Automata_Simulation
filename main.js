@@ -254,7 +254,7 @@ Automata.prototype.update = function () {
 };
 
 Automata.prototype.draw = function (ctx) {
-	var size = Math.floor(this.game.surfaceHeight / this.dimension);
+	var size = Math.floor(this.game.ctx.canvas.height / this.dimension);
 	for (var i = 0; i < this.dimension; i++) {
 		for (var j = 0; j < this.dimension; j++) {
 			var cell = this.board[i][j];
