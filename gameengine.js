@@ -39,7 +39,8 @@ function GameEngine() {
     this.surfaceWidth = null;
     this.surfaceHeight = null;
     this.pause = 0;
-    
+    this.dimension = 50;
+    this.nextDimension = 50;
     this.rule = GF_18("000100000001100000");
     this.nextRule = GF_18("000100000001100000");
     this.setUp = "p106-gun";

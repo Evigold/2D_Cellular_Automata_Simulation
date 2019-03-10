@@ -40,19 +40,23 @@ ASSET_MANAGER.downloadAll(function () {
 			gameEngine.nextSetUp = e.options[e.selectedIndex].value;;	
 		} else if(e.target.matches('.slider')) {
 			gameEngine.speed = document.getElementById("speed").value;		
+		} else if(e.target.matches('.size')) {
+			var e = document.getElementById("size");
+			gameEngine.nextDimension = e.options[e.selectedIndex].value;
 		}
 	}
 	
 	function initAll() {
 		automata.removeFromWorld = true;
+		gameEngine.pause = 1;
 		gameEngine.rule = gameEngine.nextRule;
 		gameEngine.setUp = gameEngine.nextSetUp;
+		gameEngine.dimension = gameEngine.nextDimension;
 		automata = new Automata(gameEngine);
 		gameEngine.addEntity(automata);
 		gameEngine.board = automata;
 		gameEngine.init(ctx);
 		gameEngine.start();
-		gameEngine.pause = 1;
 	}
 	function setRule(rule) {
 		if(rule === "CGOL")	gameEngine.nextRule = GF_18("000100000001100000")
@@ -65,7 +69,7 @@ ASSET_MANAGER.downloadAll(function () {
 
 function Automata(game) {
 	this.game = game;
-	this.dimension = 100;
+	this.dimension = this.game.dimension;
 	this.board = [];
 	this.elapseTime = 0;
 	// this.updateThreshHold = .1;
@@ -77,11 +81,10 @@ function Automata(game) {
 	var initStateType = "dead";
 
 	// initial configuration to set cell's canvas initially
-	console.log(this.game.setUp);
 	
 	switch (this.initialConfig) {
-		case "random":
-			initStateType = "random";
+		case "Random":
+			initStateType = "Random";
 			break;
 		case "alive":
 			initStateType = "alive";
@@ -99,31 +102,30 @@ function Automata(game) {
 	}
 
 	// THe middle point for the GameBoard
-	var middle = Math.floor(this.dimension / 2);
-
+	var middle = Math.floor(this.game.dimension / 2);
 	switch (this.initialConfig) {
-		case "center":
-			this.board[middle][middle] = true;
+		case "Center":
+			this.board[middle][middle].alive = true;
 			break;
-		case "cube":
+		case "Cube":
 			this.board[middle][middle].alive = true;
 			this.board[middle][middle+ 1].alive = true;
 			this.board[middle + 1][middle].alive = true;
 			this.board[middle + 1][middle + 1].alive = true;
 			break;
-		case "glider":
+		case "Glider":
 			this.board[middle][middle - 1].alive = true;
 			this.board[middle + 1][middle].alive = true;
 			this.board[middle - 1][middle + 1].alive = true;
 			this.board[middle][middle + 1].alive = true;
 			this.board[middle + 1][middle + 1].alive = true;
 			break;
-		case "blinker":
+		case "Blinker":
 			this.board[middle -1][middle].alive = true;
 			this.board[middle][middle].alive = true;
 			this.board[middle + 1][middle].alive = true;
 			break;
-		case "toad":
+		case "Toad":
 			this.board[middle][middle].alive = true;
 			this.board[middle + 1][middle].alive = true;
 			this.board[middle + 2][middle].alive = true;
@@ -152,8 +154,8 @@ function Automata(game) {
 				}
 			}
 			break;
-		case  "revolver":
-			var r = "1000000000000111100001000111000101010010000010000001000000101000000000000100101010001110001000011110000000000001";
+		case  "Revolver":
+			var r = "1000000000000111100001000111000101010010000010000001010000101000000100000100101010001110001000011110000000000001";
 			var c = 0;
 			for(var i = 0; i < 8; i++) {
 				for(var j = 0; j < 14; j++) {
@@ -162,7 +164,7 @@ function Automata(game) {
 				}
 			}
 			break;
-		case "pufferfish":
+		case "Pufferfish":
 			var r = "000100000001000001110000011100011001000100110000111000111000000000000000000000010000010000001001000100100100000101000001110000101000011000000101000000000101000101000000010000010000";
 			var c = 0;
 			for(var i = 0; i < 12; i++) {
@@ -191,6 +193,18 @@ function Automata(game) {
 					this.board[i][middle - 1].alive = true;
 				}
 			}
+			break;
+		case "Toad-Flip":
+			var r = "010000000000000010010000000000000010101000000000000101010000000000000010010000001000000010010000001100000010010000001100000010101000000100000101010000000000000010010000000000000010"
+			var c = 0;
+			for(var i = 0; i < 10; i++) {
+				for(var j = 0; j < 18; j++) {
+					this.board[middle - 9 + j][middle - 5 + i].alive = (r.charAt(c) === "1");
+					c++;
+				}
+			}
+			break;
+
 	}
 	Entity.call(this, game, 0, 0);
 };
@@ -201,7 +215,7 @@ Automata.prototype.constructor = Automata;
 Automata.prototype.update = function () {
 	this.elapseTime += this.game.clockTick;
 	
-	if(this.elapseTime > 1/this.game.speed && this.game.pause === 0) {
+	if(this.elapseTime > 5/this.game.speed && this.game.pause === 0) {
 		// l++;
 		for (var i = 0; i < this.dimension; i++) {
 			for (var j = 0; j < this.dimension; j++) {
@@ -216,7 +230,7 @@ Automata.prototype.update = function () {
 			}
 		}
 
-		this.elapseTime -= 1/this.game.speed;
+		this.elapseTime -= 5/this.game.speed;
 	}
 };
 
@@ -238,7 +252,7 @@ function Cell(game,x,y,type) {
 	this.y = y;
 	this.game = game;
 	this.type = type;
-	if(type === "random")		this.alive = (Math.random() > 0.5);
+	if(type === "Random")		this.alive = (Math.random() > 0.5);
 	else if(type == "alive")	this.alive = true;
 	else this.alive = false;
 	this.nextState = this.alive;
