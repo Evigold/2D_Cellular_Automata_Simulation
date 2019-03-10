@@ -204,7 +204,26 @@ function Automata(game) {
 				}
 			}
 			break;
-
+		 case "23334M":
+				var r = "001001000010000001000001010010010101000"
+				var c = 0;
+				for(var i = 0; i < 8; i++) {
+					for(var j = 0; j < 5; j++) {
+						this.board[middle - 2 + j][middle - 4 + i].alive = (r.charAt(c) === "1");
+						c++;
+					}
+				}
+				break;
+		case "17c45reaction":
+			var r = "00000000000000011000000000000011100000000000011010000000000000110000000000000001"
+			var c = 0;
+			for(var i = 0; i < 5; i++) {
+				for(var j = 0; j < 16; j++) {
+					this.board[middle - 8 + j][middle - 2 + i].alive = (r.charAt(c) === "1");
+					c++;
+				}
+			}
+			break;
 	}
 	Entity.call(this, game, 0, 0);
 };
