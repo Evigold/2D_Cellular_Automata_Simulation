@@ -1,0 +1,74 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebGo</title>
+    <link rel="stylesheet" href="menu.css">
+    <script type="text/javascript" src="./assetmanager.js"></script>
+    <script type="text/javascript" src="./gameengine.js"></script>
+    <script type="text/javascript" src="./main.js"></script>
+</head>
+<body>
+    <div></div>
+    <div class="navbar">
+        <div></div>
+        <div class="dropdown">
+            <button class="reset" id="reset" onclick="myFunction()">reset</button>
+        </div> 
+        <div class="dropdown">
+            <button class="start" id="start" onclick="myFunction()">start</button>
+        </div> 
+        <div class="dropdown">
+            <button class="pause" id="pause" disabled onclick="myFunction()">Pause/Play</button>    
+        </div> 
+        <div class="dropdown">
+            Rule:
+            <select class="rules" id="rules">
+                <option value="CGOL">CGOL</option>
+                <option value="HighLife">HighLife</option>
+                <option value="2x2">2x2</option>
+                <option value="Replicator">Replicator</option>
+            </select>
+        </div> 
+        <div class="dropdown">
+            Start Design
+            <select class="starter" id="starter">
+                <option value="p106-gun">p106-gun</option>
+                <option value="pufferfish">pufferfish</option>
+                <option value="revolver">revolver</option>
+                <option value="SwitchEngine">SwitchEngine</option>
+                <option value="random">random</option>
+                <option value="LWSS">LWSS</option>
+                <option value="toad">toad</option>
+                <option value="blinker">blinker</option>
+                <option value="glider">glider</option>
+                <option value="cube">cube</option>
+                <option value="center">center</option>
+            </select>
+        </div>
+        <div class="dropdown">
+            <div class="slidecontainer">
+                <input type="range" min="1" max="100" value="50" class="slider" id="speed">
+            </div>
+                
+        </div> 
+        <div class="dropdown">
+        </div> 
+        <div class="dropdown">
+            Speed: <span id="demo"></span>%
+        </div> 
+        <div></div> 
+    <canvas id="gameWorld" width="800" height="800" style="border: 1px solid black; background: white"></canvas>
+    <script>
+        var slider = document.getElementById("speed");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+        function myFunction() {}
+    </script>
+</body>
+</html>
