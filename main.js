@@ -57,7 +57,7 @@ ASSET_MANAGER.downloadAll(function () {
 	function setRule(rule) {
 		if(rule === "CGOL")	gameEngine.nextRule = GF_18("000100000001100000")
 		else if(rule === "HighLife")	gameEngine.nextRule = GF_18("000100100001100000")
-		else if(rule === "2X2")	gameEngine.nextRule = GF_18("000100100011001000")
+		else if(rule === "2x2")	gameEngine.nextRule = GF_18("000100100011001000")
 		else	gameEngine.nextRule = GF_18("010101010010101010")
 	
 	}
@@ -226,7 +226,7 @@ Automata.prototype.draw = function (ctx) {
 		for (var j = 0; j < this.dimension; j++) {
 			var cell = this.board[i][j];
 
-			cell.alive? ctx.fillStyle = "black" : ctx.fillStyle = "black";
+			cell.alive? ctx.fillStyle = "white" : ctx.fillStyle = "black";
 			cell.alive? ctx.fillRect( (i * size + 1), (j * size + 1), (size - 2), (size - 2)) : ctx.fillRect( (i * size), (j * size), (size), (size)); 
 		}
 	}
