@@ -46,6 +46,8 @@ function GameEngine() {
     this.setUp = "p106-gun";
     this.nextSetUp = "p106-gun";
     this.speed = 50
+    this.cycleNum = 0;
+    this.aliveCount = 0;
 }
 
 GameEngine.prototype.init = function (ctx) {
