@@ -1,4 +1,5 @@
 
+console.log("Connection to DB is not complete. I believe it is saving onto the DB properly, but I am having trouble retrieving information from it");
 
 var ASSET_MANAGER = new AssetManager();
 ASSET_MANAGER.queueDownload("./black.png");
