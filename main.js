@@ -17,24 +17,24 @@ ASSET_MANAGER.downloadAll(function () {
 	var dataToStore = [];
 			
 
-	var socket = io.connect("http://24.16.255.56:8888");
-	window.onload = function () {
-		socket.on("load", function (data) {
-			console.log(data);
-			dataToStore = data;
+	// var socket = io.connect("http://24.16.255.56:8888");
+	// window.onload = function () {
+	// 	socket.on("load", function (data) {
+	// 		console.log(data);
+	// 		dataToStore = data;
 
-		});
+	// 	});
 	  
-		socket.on("connect", function () {
-			console.log("Socket connected.")
-		});
-		socket.on("disconnect", function () {
-			console.log("Socket disconnected.")
-		});
-		socket.on("reconnect", function () {
-			console.log("Socket reconnected.")
-		});
-	};
+	// 	socket.on("connect", function () {
+	// 		console.log("Socket connected.")
+	// 	});
+	// 	socket.on("disconnect", function () {
+	// 		console.log("Socket disconnected.")
+	// 	});
+	// 	socket.on("reconnect", function () {
+	// 		console.log("Socket reconnected.")
+	// 	});
+	// };
 	window.onclick = function(e) {
 		if (!event.target.matches('.dropbtn')) {
 			var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -66,28 +66,28 @@ ASSET_MANAGER.downloadAll(function () {
 		} else if(e.target.matches('.size')) {
 			var e = document.getElementById("size");
 			gameEngine.nextDimension = e.options[e.selectedIndex].value;
-		} else if(e.target.matches('.save')) {
-			console.log("save");
-			// text.innerHTML = "Saved."
-			dataToStore = [];
-			dataToStore.push(getSimpleBoard());
-			dataToStore.push(gameEngine.aliveCount)
-			dataToStore.push(gameEngine.cycleNum)
-			dataToStore.push(gameEngine.dimension);
-			socket.emit("save", { 
-				studentname: "Eviatar Goldschmidt", 
-				statename: "saved", 
-				data: dataToStore
-			});
-		} else if(e.target.matches('.load')) {
-			console.log("load");
-			// text.innerHTML = "Load."
-			socket.emit("load", { 
-				studentname: "Eviatar Goldschmidt", 
-				statename: "Load"
-			});
-			SetFromSimpleBoard();
-			document.getElementById("pause").disabled = false;
+		// } else if(e.target.matches('.save')) {
+		// 	console.log("save");
+		// 	// text.innerHTML = "Saved."
+		// 	dataToStore = [];
+		// 	dataToStore.push(getSimpleBoard());
+		// 	dataToStore.push(gameEngine.aliveCount)
+		// 	dataToStore.push(gameEngine.cycleNum)
+		// 	dataToStore.push(gameEngine.dimension);
+		// 	socket.emit("save", { 
+		// 		studentname: "Eviatar Goldschmidt", 
+		// 		statename: "saved", 
+		// 		data: dataToStore
+		// 	});
+		// } else if(e.target.matches('.load')) {
+		// 	console.log("load");
+		// 	// text.innerHTML = "Load."
+		// 	socket.emit("load", { 
+		// 		studentname: "Eviatar Goldschmidt", 
+		// 		statename: "Load"
+		// 	});
+		// 	SetFromSimpleBoard();
+		// 	document.getElementById("pause").disabled = false;
 		}
 	}
 
