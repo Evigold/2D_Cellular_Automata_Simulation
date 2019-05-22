@@ -182,7 +182,7 @@ function Automata(game) {
 			this.board[middle][middle].alive = true;
 			this.game.aliveCount = 1;
 			break;
-// 		case "Cube":
+		case "Cube":
 // 			this.board[middle][middle].alive = true;
 // 			this.board[middle][middle+ 1].alive = true;
 // 			this.board[middle + 1][middle].alive = true;
